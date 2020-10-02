@@ -1,0 +1,120 @@
+-- *****************************************************************
+-- IF-SWCONFIG-MIB
+-- *****************************************************************
+IF-SWCONFIG-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, Gauge32, Counter64,
+    Integer32, enterprises                          FROM SNMPv2-SMI;
+
+ifSwitchMIB MODULE-IDENTITY
+    LAST-UPDATED "202010010000Z"
+    ORGANIZATION "Njibhu"
+    CONTACT-INFO
+        "manu@njibhu.eu"
+    DESCRIPTION
+        "Switch table"
+    REVISION
+        "202010010000Z"
+    DESCRIPTION
+        "First revision"
+    ::= { enterprises 999 }
+
+ifSwitchMIBObjects OBJECT IDENTIFIER ::= { ifSwitchMIB 999 }
+
+--- Port table
+ifSwitchPortNumber OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The number of ports."
+    ::={ ifSwitchMIBObjects 1}
+
+ifSwitchPortTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF IfSwitchPortEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION 
+        "A list of port entries."
+    ::= { ifSwitchMIBObjects 2 }
+
+ifSwitchPortEntry OBJECT-TYPE
+    SYNTAX      IfSwitchPortEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry containing infromation about a particular port."
+    INDEX       { ifSwitchPortIndex }
+    ::= { ifSwitchPortTable 1 }
+
+IfSwitchPortEntry ::=
+    SEQUENCE {
+        ifSwitchPortIndex           Integer32,
+        ifSwitchPortLinkStatus      INTEGER,
+        ifSwitchPortLinkSpeed       Gauge32,
+        ifSwitchPortRXGoodByte      Counter64,
+        ifSwitchPortTXByte          Counter64
+    }
+
+ifSwitchPortIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483647)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Unique index of each port."
+    ::= { ifSwitchPortEntry 1}
+
+ifSwitchPortLinkStatus OBJECT-TYPE
+    SYNTAX      INTEGER { up(1), down(2) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Up when a connector is in the port and there is a link."
+    ::={ ifSwitchPortEntry 2}
+
+ifSwitchPortLinkSpeed OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "An estimate of the interface's current bandwidth in units
+        of 1,000,000 bits per second."
+    ::={ ifSwitchPortEntry 3}
+
+ifSwitchPortRXGoodByte OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The number of bytes received."
+    ::={ ifSwitchPortEntry 4}
+
+ifSwitchPortTXByte OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The number of bytes transmited."
+    ::={ ifSwitchPortEntry 5}
+
+-- end port table
+
+-- *****************************************************************
+-- TODO
+-- arlTable                    3
+-- - arlEntry                  1
+--   index: portIndex
+--   - portIndex               1
+--   - macAddress              2
+-- 
+-- vlanTable                   4
+-- - vlanEntry                 1
+--   index: vlanEntryIndex, portIndex
+--   - vlanEntryIndex          1
+--   - portIndex               2
+--   - vid                     3
+--   - tag                     4
+-- *****************************************************************
+
+END
