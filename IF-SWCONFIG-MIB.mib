@@ -20,7 +20,7 @@ ifSwitchMIB MODULE-IDENTITY
         "First revision"
     ::= { enterprises 999 }
 
-ifSwitchMIBObjects OBJECT IDENTIFIER ::= { ifSwitchMIB 999 }
+ifSwitchMIBPorts OBJECT IDENTIFIER ::= { ifSwitchMIB 1 }
 
 --- Port table
 ifSwitchPortNumber OBJECT-TYPE
@@ -29,7 +29,7 @@ ifSwitchPortNumber OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The number of ports."
-    ::={ ifSwitchMIBObjects 1}
+    ::={ ifSwitchMIBPorts 1}
 
 ifSwitchPortTable OBJECT-TYPE
     SYNTAX      SEQUENCE OF IfSwitchPortEntry
@@ -37,7 +37,7 @@ ifSwitchPortTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION 
         "A list of port entries."
-    ::= { ifSwitchMIBObjects 2 }
+    ::= { ifSwitchMIBPorts 2 }
 
 ifSwitchPortEntry OBJECT-TYPE
     SYNTAX      IfSwitchPortEntry
