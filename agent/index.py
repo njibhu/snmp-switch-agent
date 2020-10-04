@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import pyagentx
@@ -17,7 +17,7 @@ class IfSwitchPorts(pyagentx.Updater):
             self.set_INTEGER('2.' + port_index + '.2', port_up)
             port_speed = 0
             if "speed" in port_detail["link"]:
-                match_number = re.match("\d*", port_detail["link"]["speed"])
+                match_number = re.match(r"\d*", port_detail["link"]["speed"])
                 port_speed = int(match_number.group())
             self.set_GAUGE32('2.' + port_index + '.3', port_speed)
             rx_good_bytes = 0

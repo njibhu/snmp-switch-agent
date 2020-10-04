@@ -1,0 +1,10 @@
+Port 0:
+        mib: MIB counters
+RxGoodByte  : 1798572445 (1.6 GiB)
+TxByte      : 28744747498 (26.7 GiB)
+
+        enable_eee: ???
+        igmp_snooping: 0
+        vlan_prio: 0
+        pvid: 0
+        link: port:0 link:up speed:1000baseT full-duplex txflow rxflow

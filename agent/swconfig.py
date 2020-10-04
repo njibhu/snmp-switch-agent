@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import subprocess
 import re
 
@@ -6,16 +9,13 @@ indent = "        "
 
 
 def call_port_map():
-    # return subprocess.check_output(["/sbin/swconfig", "dev {} portmap".format(switch_id)])
-    return subprocess.check_output(["cat", "temp/portmap.txt"])
+    return subprocess.getoutput("/sbin/swconfig dev {} portmap".format(switch_id))
 
 
 def call_port_detail(port_index):
-    # return subprocess.check_output(
-    #     ["/sbin/swconfig",
-    #     "dev {} port {} show".format(switch_id, port_index)]
-    # )
-    return subprocess.check_output(["cat", "temp/portWithMib.txt"])
+    return subprocess.getoutput(
+        "/sbin/swconfig dev {} port {} show".format(switch_id, port_index)
+    )
 
 
 def get_port_number():
@@ -85,7 +85,10 @@ def parse_link(input):
     for value in input.split(" "):
         if value.find(":") > -1:
             key, sub_value = value.split(":", 1)
-            link_dict[key.strip()] = sub_value.strip()
+            if sub_value.strip() == "???":
+                link_dict[key.strip()] = None
+            else:
+                link_dict[key.strip()] = to_int(sub_value.strip())
         else:
             link_dict[value.strip()] = True
     return link_dict
@@ -94,7 +97,9 @@ def parse_link(input):
 def parse_port(dict_input):
     port_dict = {}
     for key, value in dict_input.items():
-        if key == "mib":
+        if value == "???":
+            port_dict[key] = None
+        elif key == "mib":
             port_dict[key] = parse_mib_string(value)
         elif key == "link":
             port_dict[key] = parse_link(value)
@@ -108,7 +113,3 @@ def to_int(s):
         return int(s)
     except ValueError:
         return s
-
-
-data = get_port_detail(0)
-print(parse_port(data))

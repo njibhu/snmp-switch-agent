@@ -1,0 +1,8 @@
+switch0 - Atheros AR8337
+port0:  cpu
+port1:  disabled
+port2:  disabled
+port3:  disabled
+port4:  disabled
+port5:  disabled
+port6:  disabled
