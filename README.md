@@ -11,6 +11,10 @@ This is work in progress and currently targets only one device.
 
 - TPLink Archer C7
 
+### Requirements
+
+`pip3 install git+https://github.com/hosthvo/pyagentx@python3`
+
 ### Notes
 
 This should become useless whenever openwrt will support these switches using DSA (Distributed Switch Architecture)
