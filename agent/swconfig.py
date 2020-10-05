@@ -5,7 +5,7 @@ import subprocess
 import re
 
 switch_id = "switch0"
-indent = "        "
+indent = "\t"
 
 
 def call_port_map():

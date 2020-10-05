@@ -1,7 +1,7 @@
 Port 1:
-        mib: No MIB data
-        enable_eee: ???
-        igmp_snooping: 0
-        vlan_prio: 0
-        pvid: 0
-        link: port:1 link:down
+	mib: No MIB data
+	enable_eee: ???
+	igmp_snooping: 0
+	vlan_prio: 0
+	pvid: 0
+	link: port:1 link:down
