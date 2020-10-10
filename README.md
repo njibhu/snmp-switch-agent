@@ -1,7 +1,13 @@
 # snmp-switch-agent
 
 Implement an agent for snmpd to monitor switches managed using the `swconfig` openwrt utility.
-This is work in progress and currently targets only one device.
+It currently targets only one device.
+
+Working:
+Monitoring of each port on the switch (up/down, link speed, bytes received, bytes transmitted)
+
+Future work:
+Add routing routing and vlan table.
 
 ### Support currently targets:
 
